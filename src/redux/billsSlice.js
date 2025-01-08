@@ -10,10 +10,13 @@ const initialState = {
     { id: 6, description: "Laundry", category: "PersonalCare", amount: 320, date: "2020-01-14" },
     { id: 7, description: "Vacation", category: "Travel", amount: 3430, date: "2020-01-18" },
   ],
+  filteredBills: [],
   filteredCategory: "",
-  selectedBills: [], // Highlighted bills
-  budget: 0, // Monthly budget
+  selectedBills: [],
+  budget: 0,
 };
+
+initialState.filteredBills = initialState.bills;
 
 const billsSlice = createSlice({
   name: "bills",
@@ -21,32 +24,40 @@ const billsSlice = createSlice({
   reducers: {
     addBill: (state, action) => {
       state.bills.push(action.payload);
+      state.filteredBills = state.bills; // Update filtered list
     },
     editBill: (state, action) => {
       const index = state.bills.findIndex((bill) => bill.id === action.payload.id);
       if (index >= 0) {
-        state.bills[index] = action.payload;
+        state.bills[index] = { ...state.bills[index], ...action.payload }; // Merge updated fields
       }
     },
     removeBill: (state, action) => {
       state.bills = state.bills.filter((bill) => bill.id !== action.payload);
+      state.filteredBills = state.bills; // Update filtered list
     },
     filterCategory: (state, action) => {
       state.filteredCategory = action.payload;
+      state.filteredBills = action.payload
+        ? state.bills.filter((bill) => bill.category === action.payload)
+        : state.bills;
     },
     setBudget: (state, action) => {
       state.budget = action.payload;
     },
     calculateSelectedBills: (state) => {
-      // Sort bills by amount (ascending)
-      const sortedBills = [...state.bills].sort((a, b) => a.amount - b.amount);
+      const relevantBills = state.filteredCategory
+        ? state.filteredBills
+        : state.bills;
+
+      const sortedBills = [...relevantBills].sort((a, b) => a.amount - b.amount);
 
       let remainingBudget = state.budget;
       state.selectedBills = [];
 
       for (const bill of sortedBills) {
         if (bill.amount <= remainingBudget) {
-          state.selectedBills.push(bill.id);
+          state.selectedBills.push(bill);
           remainingBudget -= bill.amount;
         } else {
           break;

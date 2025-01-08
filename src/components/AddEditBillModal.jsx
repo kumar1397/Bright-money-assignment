@@ -32,13 +32,21 @@ const AddEditBillModal = ({ modalData, setModalData }) => {
             onChange={(e) => setBill({ ...bill, description: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 w-full"
           />
-          <input
-            type="text"
-            placeholder="Category"
+          <select
             value={bill.category || ""}
             onChange={(e) => setBill({ ...bill, category: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 w-full"
-          />
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="FoodNDining">Food & Dining</option>
+            <option value="Utility">Utility</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Education">Education</option>
+            <option value="PersonalCare">Personal Care</option>
+            <option value="Travel">Travel</option>
+          </select>
           <input
             type="number"
             placeholder="Amount"
@@ -71,10 +79,10 @@ const AddEditBillModal = ({ modalData, setModalData }) => {
     </div>
   ) : null;
 };
+
 AddEditBillModal.propTypes = {
   modalData: PropTypes.object,
   setModalData: PropTypes.func.isRequired,
 };
 
 export default AddEditBillModal;
-
