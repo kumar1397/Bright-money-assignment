@@ -7,7 +7,9 @@ const App = () => {
       <div className="flex justify-center items-center h-full ">
         <span className="font-bold text-blue-600 text-2xl">Bill Manager</span>
       </div>
-      <BillDashboard />
+      <div className="flex justify-center items-center h-full ">
+        <BillDashboard />
+      </div>
     </div>
   );
 };
