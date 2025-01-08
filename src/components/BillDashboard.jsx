@@ -32,7 +32,7 @@ const BillDashboard = () => {
         <div className="flex items-center space-x-2 mt-1">
           <input
             type="number"
-            value={budget}
+            value={budget || ""}
             onChange={(e) => dispatch(setBudget(Number(e.target.value)))}
             className="border border-gray-300 rounded px-3 py-2 w-full"
           />
