@@ -17,7 +17,7 @@ const BillDashboard = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl bg-white p-6 shadow rounded-lg">
+    <div className="w-full max-w-4xl bg-white p-6 shadow rounded-lg flex flex-col justify-center">
       <div className="flex justify-between items-center mb-4">
         <BillFilter />
         <button

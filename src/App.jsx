@@ -3,8 +3,10 @@ import BillDashboard from "./components/BillDashboard";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-6">
-      <h1 className="text-3xl font-bold text-blue-600 mb-6">Bill Manager</h1>
+    <div className=" bg-yellow-100 flex flex-col py-6 justify-center">
+      <div className="flex justify-center items-center h-full ">
+        <span className="font-bold text-blue-600 text-2xl">Bill Manager</span>
+      </div>
       <BillDashboard />
     </div>
   );
